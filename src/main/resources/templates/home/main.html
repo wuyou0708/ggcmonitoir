@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar"  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>滚滚车监控系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 移动设备 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+    <meta name="author" content="admui.com">
+    <!-- 360浏览器默认使用Webkit内核 -->
+    <meta name="renderer" content="webkit">
+    <!-- 禁止搜索引擎抓取 -->
+    <meta name="robots" content="nofollow">
+    <!-- 禁止百度SiteAPP转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <!-- Chrome浏览器添加桌面快捷方式（安卓） -->
+    <link rel="icon" type="image/png" href="/Content/images/web_icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Safari浏览器添加到主屏幕（IOS） -->
+    <link rel="icon" sizes="192x192" href="/Content/images/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Admui">
+    <!-- Win8标题栏及ICON图标 -->
+    <link rel="apple-touch-icon-precomposed" th:href="@{../images/apple-touch-icon.png}">
+    <meta name="msapplication-TileImage" th:content="@{../images/app-icon72x72@2x.png}">
+    <meta name="msapplication-TileColor" content="#62a8ea">
+    <!--[if lte IE 9]>
+    <meta http-equiv="refresh" static="0; url='/ie.html'" />
+    <![endif]-->
+    <!--[if lt IE 10]>
+    <script th:src="@{vendor/media-match/media.match.min.js}"></script>
+    <script th:src="@{vendor/respond/respond.min.js}"></script>
+    <![endif]-->
+    <!-- 样式 -->
+    <link rel="stylesheet" th:href="@{../themes/classic/global/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{../themes/classic/base/css/index.css}" id="admui-siteStyle">
+    <!-- 图标 CSS-->
+    <link rel="stylesheet" th:href="@{../fonts/font-awesome/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{../fonts/web-icons/web-icons.css}">
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{../vendor/animsition/animsition.css}">
+    <link rel="stylesheet" th:href="@{../vendor/toastr/toastr.css}">
+    <link rel="stylesheet" th:href="@{../vendor/nprogress/nprogress.css}">
+    <link rel="stylesheet" th:href="@{../vendor/formvalidation/formValidation.css}">
+
+</head>
+
+<body class="site-contabs-open site-menubar-unfold ">
+<link rel="stylesheet" th:href="@{../css/home.css}">
+<div class="page animation-fade page-index">
+    <div class="page-content">
+        <div class="media account-info">
+            <div class="media-left">
+                <div class="avatar avatar-online">
+                    <img th:src="@{../images/avatar.svg}" alt="admin">
+                    <i class="avatar avatar-busy"></i>
+                </div>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">欢迎您访问滚滚物权监控系统</h4>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 插件 -->
+<script th:src="@{../vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{../vendor/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{../vendor/modernizr/modernizr.min.js}"></script>
+<script th:src="@{../vendor/breakpoints/breakpoints.min.js}"></script>
+<script th:src="@{../vendor/artTemplate/template.min.js}"></script>
+<script th:src="@{../vendor/layer/layer.min.js}"></script>
+<!-- 核心  -->
+<script th:src="@{../themes/classic/global/js/core.js}"></script>
+<script th:src="@{../themes/classic/global/js/configs/site-configs.js}"></script>
+<script th:src="@{../themes/classic/global/js/components.js}"></script>
+<script>Breakpoints();</script>
+
+<!-- 插件 -->
+<script th:src="@{../vendor/ashoverscroll/jquery-asHoverScroll.min.js}"></script>
+<script th:src="@{../vendor/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{../vendor/screenfull/screenfull.min.js}"></script>
+<script th:src="@{../vendor/nprogress/nprogress.min.js}"></script>
+<script th:src="@{../vendor/toastr/toastr.min.js}"></script>
+<script th:src="@{../themes/classic/global/js/plugins/responsive-tabs.js}"></script>
+
+<!-- 布局 -->
+<script th:src="@{../themes/classic/base/js/sections/menu.js}"></script>
+<script th:src="@{../themes/classic/base/js/sections/media-menu.js}"></script>
+<script th:src="@{../themes/classic/base/js/sections/static-tabs.js}"></script>
+<script th:src="@{../themes/classic/base/js/site.js}"></script>
+</body>
+</html>

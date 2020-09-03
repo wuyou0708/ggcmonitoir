@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>滚滚车监控系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 移动设备 viewport -->
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+    <meta name="author" content="admui.com">
+    <!-- 360浏览器默认使用Webkit内核 -->
+    <meta name="renderer" content="webkit">
+    <!-- 禁止搜索引擎抓取 -->
+    <meta name="robots" content="nofollow">
+    <!-- 禁止百度SiteAPP转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <!-- Chrome浏览器添加桌面快捷方式（安卓） -->
+    <link rel="icon" type="image/png" href="/Content/images/web_icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Safari浏览器添加到主屏幕（IOS） -->
+    <link rel="icon" sizes="192x192" href="/Content/images/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Admui">
+    <!-- Win8标题栏及ICON图标 -->
+    <link rel="apple-touch-icon-precomposed" th:href="@{../images/apple-touch-icon.png}">
+    <meta name="msapplication-TileImage" th:content="@{../images/app-icon72x72@2x.png}">
+    <meta name="msapplication-TileColor" content="#62a8ea">
+    <!--[if lte IE 9]>
+    <meta http-equiv="refresh" static="0; url='/ie.html'"/>
+    <![endif]-->
+    <!--[if lt IE 10]>
+    <script th:src="@{vendor/media-match/media.match.min.js}"></script>
+    <script th:src="@{vendor/respond/respond.min.js}"></script>
+    <![endif]-->
+    <!-- 样式 -->
+    <link rel="stylesheet" th:href="@{../themes/classic/global/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{../themes/classic/base/css/index.css}" id="admui-siteStyle">
+    <!-- 图标 CSS-->
+    <link rel="stylesheet" th:href="@{../fonts/font-awesome/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{../fonts/web-icons/web-icons.css}">
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{../vendor/animsition/animsition.css}">
+    <link rel="stylesheet" th:href="@{../vendor/toastr/toastr.css}">
+    <link rel="stylesheet" th:href="@{../vendor/nprogress/nprogress.css}">
+    <link rel="stylesheet" th:href="@{../vendor/formvalidation/formValidation.css}">
+
+</head>
+
+<body class="site-contabs-open site-menubar-unfold ">
+
+<div class="page animation-fade page-tables" style="margin-top: -80px;margin-left:10px;">
+    <div class="page-header">
+        <h1 class="page-title">飞鸽传书渠道短信监控</h1>
+    </div>
+    <div class="page-content">
+        <div class="panel">
+            <div class="panel-body container-fluid">
+                <div class="row row-lg">
+                    <div class="col-md-6" style="width:100%">
+                        <div class="example-wrap">
+                            <div class="example table-responsive">
+                                <table class="table" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>手机号</th>
+                                        <th>发送状态</th>
+                                        <th>回执状态</th>
+                                        <th>回执内容</th>
+                                        <th>短信内容</th>
+                                        <th>发送时间</th>
+                                        <th>回执时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item: ${list}">
+                                        <td th:text="${list.indexOf(item)+1}">ID</td>
+                                        <td th:text="${{item.getMobile()}}"></td>
+                                        <td th:style="${item.getStatus()==1} ? 'color:green;font-weight:bold' : (${item.getStatus()==2}?'color:red;font-weight:bold':'')"
+                                            th:text="${item.getStatus()==1} ? '发送成功' : (${item.getStatus()==2}?'发送失败':'待发送')"></td>
+                                        <td th:style="${item.getSantoReportStatus()==1} ? 'color:green;font-weight:bold' : (${item.getSantoReportStatus()==2}?'color:red;font-weight:bold':'')"
+                                            th:text="${item.getSantoReportStatus()==1} ? '报告成功' : (${item.getSantoReportStatus()==2}?'报告失败':'未报告')"></td>
+                                        <td th:text="${{item.getSantoReportMsg()}}"></td>
+                                        <td th:text="${{item.getContent()}}"></td>
+                                        <td th:text="${#dates.format(item.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${#dates.format(item.getSantoReportTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                                <div class="col-sm-6">
+                                    <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite"
+                                         aria-relevant="all"
+                                         th:text="${'共'+page.getTotal()+'条记录，'+page.getPages()+'页'}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6" style="margin-top: -15px;">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button previous "
+                                                th:class="${page.hasPreviousPage}?'':'disabled' "
+                                                aria-controls="editable"
+                                                tabindex="0" id="editable_previous"><a
+                                                    th:href="@{/sms/feigesms(page=${page.hasPreviousPage}?${page.prePage}:1)}">上一页</a>
+                                            </li>
+                                            <li class="paginate_button " th:class="${page.getPageNum()==1}?'active':'' "
+                                                aria-controls="editable" tabindex="0">
+                                                <a th:href="@{/sms/feigesms(page=1)}" th:text="1"></a></li>
+
+                                            <!--当前页面的前三个页面-->
+                                            <li class='paginate_button active'
+                                                th:class="${page.getPageNum()-3>2}?'':'hidden'"
+                                                aria-controls='editable' tabindex='0'><span class=\"current\">...</span>
+                                            </li>
+
+                                            <li class='paginate_button'
+                                                th:class="${page.getPageNum()-3>1}?'':'hidden'"
+                                                aria-controls='editable'
+                                                tabindex='0'>
+                                                <a th:href="@{/sms/feigesms(page=${page.getPageNum()}-3)}"
+                                                   th:text="${page.getPageNum()-3}">
+                                                </a>
+                                            </li>
+                                            <li class='paginate_button'
+                                                th:class="${page.getPageNum()-2>1}?'':'hidden'"
+                                                aria-controls='editable'
+                                                tabindex='0'>
+                                                <a th:href="@{/sms/feigesms(page=${page.getPageNum()}-2)}"
+                                                   th:text="${page.getPageNum()-2}">
+                                                </a>
+                                            </li>
+                                            <li class='paginate_button'
+                                                th:class="${page.getPageNum()-1>1}?'':'hidden'"
+                                                aria-controls='editable'
+                                                tabindex='0'>
+                                                <a th:href="@{/sms/feigesms(page=${page.getPageNum()}-1)}"
+                                                   th:text="${page.getPageNum()-1}">
+                                                </a>
+                                            </li>
+
+                                            <!--当前页面-->
+                                            <li class='paginate_button'
+                                                th:class="${page.getPageNum()!=1&&page.getPageNum()!=page.getPages()}?'active':'hidden'"
+                                                aria-controls='editable' tabindex='0'>
+                                                <a th:href="@{/sms/feigesms(page=${page.getPageNum()})}"
+                                                   th:text="${page.getPageNum()}">
+                                                </a>
+                                            </li>
+
+                                            <!--当前页面的后三个页面-->
+                                            <li class='paginate_button'
+                                                th:class="${page.getPageNum()+1<page.getPages()}?'':'hidden'"
+                                                aria-controls='editable' tabindex='0'>
+                                                <a th:href="@{/sms/feigesms(page=${page.getPageNum()}+1)}"
+                                                   th:text="${page.getPageNum()+1}">
+                                                </a>
+                                            </li>
+                                            <li class='paginate_button'
+                                                th:class="${page.getPageNum()+2<page.getPages()}?'':'hidden'"
+                                                aria-controls='editable' tabindex='0'>
+                                                <a th:href="@{/sms/feigesms(page=${page.getPageNum()}+2)}"
+                                                   th:text="${page.getPageNum()+2}">
+                                                </a>
+                                            </li>
+                                            <li class='paginate_button'
+                                                th:class="${page.getPageNum()+3<page.getPages()}?'':'hidden'"
+                                                aria-controls='editable' tabindex='0'>
+                                                <a th:href="@{/sms/feigesms(page=${page.getPageNum()}+3)}"
+                                                   th:text="${page.getPageNum()+3}">
+                                                </a>
+                                            </li>
+                                            <li class='paginate_button active'
+                                                th:class="${page.getPageNum()+4<page.getPages()}?'':'hidden'"
+                                                aria-controls='editable' tabindex='0'>
+                                                <span class=\"current\">...</span>
+                                            </li>
+
+                                            <li class="paginate_button active "
+                                                th:class="${page.getPageNum()==page.getPages()}?'active':'' "
+                                                aria-controls="editable" tabindex="0">
+                                                <a th:href="@{/sms/feigesms(page=${page.getPages()})}"
+                                                   th:text="${page.getPages()}"></a></li>
+
+                                            <li class="paginate_button next "
+                                                th:class="${page.hasNextPage}?'':'disabled'"
+                                                aria-controls="editable" tabindex="0"
+                                                id="editable_next">
+                                                <a th:href="@{/sms/feigesms(page=${page.hasNextPage}?${page.nextPage}:${page.pages})}">下一页</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    setTimeout(function () {
+        $("title").html("飞鸽传书渠道短信监控");
+    }, 500);
+</script>
+
+
+<!-- 插件 -->
+<script th:src="@{../vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{../vendor/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{../vendor/modernizr/modernizr.min.js}"></script>
+<script th:src="@{../vendor/breakpoints/breakpoints.min.js}"></script>
+<script th:src="@{../vendor/artTemplate/template.min.js}"></script>
+<script th:src="@{../vendor/layer/layer.min.js}"></script>
+<!-- 核心  -->
+<script th:src="@{../themes/classic/global/js/core.js}"></script>
+<script th:src="@{../themes/classic/global/js/configs/site-configs.js}"></script>
+<script th:src="@{../themes/classic/global/js/components.js}"></script>
+<script>Breakpoints();</script>
+
+<!-- 插件 -->
+<script th:src="@{../vendor/ashoverscroll/jquery-asHoverScroll.min.js}"></script>
+<script th:src="@{../vendor/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{../vendor/screenfull/screenfull.min.js}"></script>
+<script th:src="@{../vendor/nprogress/nprogress.min.js}"></script>
+<script th:src="@{../vendor/toastr/toastr.min.js}"></script>
+<script th:src="@{../themes/classic/global/js/plugins/responsive-tabs.js}"></script>
+
+<!-- 布局 -->
+<script th:src="@{../themes/classic/base/js/sections/menu.js}"></script>
+<script th:src="@{../themes/classic/base/js/sections/media-menu.js}"></script>
+<script th:src="@{../themes/classic/base/js/sections/static-tabs.js}"></script>
+<script th:src="@{../themes/classic/base/js/site.js}"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: ggcmonitor
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    active: dev
+  thymeleaf:
+    encoding: UTF-8
+    prefix: classpath:/templates/
+
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-connections: 500
+    min-spare-threads: 25
+    max-threads: 300
+    accept-count: 200
+  port: 8080
+mybatis:
+  type-aliases-package: com.zb.mapper
+  mapper-locations: classpath:mapping/*.xml
+  config-location: classpath:mybatis-config.xml
+
+
+logging:
+  level:
+    com.zb.mapper: debug
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    type: com.microsoft.sqlserver.jdbc.SQLServerDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20

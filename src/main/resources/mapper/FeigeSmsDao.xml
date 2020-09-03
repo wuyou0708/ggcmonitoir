@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 这里填写对应的Dao文件所在的路径 -->
+<mapper namespace="ggc_monitor.ggcmonitor.dao.FeigeSmsDao">
+    <!-- 填写数据库里实例Person对应的表的表名 -->
+    <!-- 这里是作为一个变量使用 -->
+    <sql id="table">GGC_SmsTask</sql>
+
+
+    <!-- id属性填写Dao文件里的函数名称 xxType是参数或是结果的类型根据情况填写 -->
+    <!-- 查询所有   -->
+    <select id="getAll" resultType="ggc_monitor.ggcmonitor.model.FeigeSmsEntity">
+        WITH tt AS (
+        SELECT
+        ROW_NUMBER() OVER(ORDER BY ID_bigint DESC) AS rownum,
+        Mobile_nvarchar as Mobile,
+        Content_nvarchar as Content,
+        Status_int as Status,
+        CreateTime_datetime as CreateTime,
+        SantoReportStatus_int as SantoReportStatus,
+        SantoReportMsg_nvarchar as SantoReportMsg,
+        SantoReportTime_datetime as SantoReportTime
+        FROM
+        <include refid="table"/>
+        WITH(NOLOCK)
+        )
+        SELECT * FROM tt AS a WHERE a.rownum &lt;= '100'
+    </select>
+
+    <select id="getAll_COUNT" resultType="Long">
+        WITH tt AS (
+        SELECT
+        ROW_NUMBER() OVER(ORDER BY ID_bigint DESC) AS rownum,
+        Mobile_nvarchar as Mobile,
+        Content_nvarchar as Content,
+        Status_int as Status,
+        CreateTime_datetime as CreateTime,
+        SantoReportStatus_int as SantoReportStatus,
+        SantoReportMsg_nvarchar as SantoReportMsg,
+        SantoReportTime_datetime as SantoReportTime
+        FROM
+        <include refid="table"/>
+        WITH(NOLOCK)
+        )
+        SELECT count(1) FROM tt AS a WHERE a.rownum &lt;= '100'
+    </select>
+</mapper>
