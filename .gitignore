@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### application.yml ###
+application.yml
+
+### mybatis-config.xml ###
+mybatis-config.xml
