@@ -38,3 +38,5 @@ application.yml
 
 ### mybatis-config.xml ###
 mybatis-config.xml
+src/main/resources/application.yml
+src/main/resources/mybatis-config.xml
